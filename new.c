@@ -19,6 +19,7 @@ Object *new(const Class *class, ...)
     va_start(val, class);
     if (class->__ctor__ != NULL)
         class->__ctor__(obj, &val);
+    va_end(val);
     return obj;
 }
 
