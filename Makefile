@@ -22,13 +22,14 @@ BDIR	=	.build/
 SRC	=	src/array.c
 SRC	+=	src/player.c
 SRC	+=	src/point.c
+SRC	+=	new.c
 
 OBJ = $(SRC:%.c=$(BDIR)/%.o)
 
 NAME = rush2
 
 .PHONY: all
-all: $(NAME)
+all: ex01
 
 $(BDIR)/%.o: %.c
 	@ mkdir -p $(dir $@)
