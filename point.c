@@ -19,13 +19,28 @@ static void Point_ctor(PointClass *this, va_list *args)
 {
     if (!args)
         raise("Missing arguments");
-    else {
-        this->x = va_arg(*args, int);
-        this->y = va_arg(*args, int);
-    }
+    this->x = va_arg(*args, int);
+    this->y = va_arg(*args, int);
 }
 
 // Create additional functions here
+
+static int my_intlen(int nbr)
+{
+    if (nbr < 10)
+        return 1;
+    return 1 + nbr / 10; 
+}
+
+static char *Point_str(PointClass *this)
+{
+    int length = my_intlen(this->x) + my_intlen(this->y) + 14 + 1;
+    char *str = malloc(length);
+
+    if (snprintf(str, length, "<Vertex (%d, %d)>", this->x, this->y) == -1)
+        return NULL;
+    return str;
+}
 
 static const PointClass _description = {
     {   /* Class struct */
@@ -33,7 +48,7 @@ static const PointClass _description = {
         .__name__ = "Point",
         .__ctor__ = (ctor_t)&Point_ctor,
         .__dtor__ = NULL,   /* Not needed atm */
-        .__str__ = NULL,    /* Implement this method for exercice 02 */
+        .__str__ = (to_string_t)&Point_str,    /* Implement this method for exercice 02 */
         .__add__ = NULL,    /* Implement this method for exercice 03 */
         .__sub__ = NULL,    /* Implement this method for exercice 03 */
         .__mul__ = NULL,
