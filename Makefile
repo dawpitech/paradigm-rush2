@@ -36,9 +36,6 @@ $(BDIR)/%.o: %.c
 	@ mkdir -p $(dir $@)
 	$(CC) -o $@ -c $< $(CFLAGS) -Wno-unused-parameter
 
-$(NAME): $(OBJ)
-	@ ar rc ${NAME} $(OBJ)
-
 ex01: $(OBJ)
 	@ $(CC) $(OBJ) mains/ex01.c $(CFLAGS) -o ex01
 
