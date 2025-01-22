@@ -26,13 +26,14 @@ SRC	+=	vertex.c
 SRC	+=	char.c
 SRC	+=	new.c
 SCR +=  int.c
+SRC	+=	float.c
 
 OBJ = $(SRC:%.c=$(BDIR)/%.o)
 
 NAME = sources
 
 .PHONY: all
-all: ex01 ex02 ex03
+all: ex01 ex02 ex03 ex04
 
 $(BDIR)/%.o: %.c
 	@ mkdir -p $(dir $@)
