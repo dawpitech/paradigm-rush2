@@ -40,7 +40,6 @@ static char *Char_str(CharClass *this)
 
 static Object *Char_add(const CharClass *a, const CharClass *b)
 {
-    printf("add\n");
     if (a == NULL || b == NULL)
         raise("Invalid char objects passed to add");
     return new(Char, a->chr + b->chr);
@@ -62,7 +61,6 @@ static Object *Char_mul(const CharClass *a, const CharClass *b)
 
 static Object *Char_div(const CharClass *a, const CharClass *b)
 {
-    printf("div\n");
     if (a == NULL || b == NULL)
         raise("Invalid char objects passed to div");
     if (b->chr == 0)
