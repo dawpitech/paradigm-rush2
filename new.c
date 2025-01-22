@@ -10,13 +10,15 @@
 Object *new(const Class *class, ...)
 {
     Object *obj;
+    va_list val = NULL;
 
     if (class == NULL)
         raise("Called new a NULL class");
     obj = calloc(1, class->__size__);
     memcpy(obj, class, class->__size__);
+    va_start(val, class);
     if (class->__ctor__ != NULL)
-        class->__ctor__(obj, NULL);
+        class->__ctor__(obj, &val);
     return obj;
 }
 
