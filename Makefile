@@ -44,6 +44,8 @@ SRC_5 = mains/ex05.c
 T_SRC	:=	$(SRC)
 T_SRC	+=	tests/ex01.c
 T_SRC	+=	tests/ex02.c
+T_SRC	+=	tests/ex03.c
+T_SRC	+=	tests/ex04.c
 
 OBJ = $(SRC:%.c=$(BDIR)/%.o)
 
@@ -57,6 +59,8 @@ T_OBJ	=	$(T_SRC:%.c=$(T_BDIR)/%.o)
 
 NAME = sources
 T_NAME	=	unit_tests
+
+GCOVR_OUTPUT = gcovr
 
 .PHONY: all
 all: ex01 ex02 ex03 ex04 ex05
@@ -72,8 +76,17 @@ $(T_BDIR)/%.o: %.c
 $(T_NAME): $(T_OBJ)
 	$(CC) $(T_OBJ) $(T_CFLAGS) -o $(T_NAME)
 
-run_tests: $(T_NAME)
+.PHONY: tests_run
+tests_run: $(T_NAME)
 	@-./$(T_NAME)
+
+.PHONY: tests_run_pp
+tests_run_pp:	$(T_NAME)
+	@ -./$(T_NAME) --verbose --full-stats --color=always -j8
+	@ mkdir -p $(GCOVR_OUTPUT)
+	@ gcovr --exclude=tests --html-details $(GCOVR_OUTPUT)/output.html
+	@ gcovr --exclude=tests
+	@ gcovr --exclude=tests --txt-metric branch
 
 ex01: $(OBJ) $(OBJ_1)
 	@ $(CC) $(OBJ) $(OBJ_1) $(CFLAGS) -o ex01
@@ -96,6 +109,7 @@ clean:
 	@ rm -rf $(BDIR)
 	@ rm -rf $(T_BDIR)
 	@ rm -d .build
+	@ rm -rf $(GCOVR_OUTPUT)
 
 .PHONY: fclean
 fclean: clean
