@@ -48,7 +48,7 @@ static char *Point_str(PointClass *this)
 static Object *Point_add(const PointClass *a, const PointClass *b)
 {
     if (!a || !b)
-        raise("Error");
+        raise("Called Point add with missing arguments");
 
     return new(Point, a->x + b->x, a->y + b->y);
 }
@@ -56,7 +56,7 @@ static Object *Point_add(const PointClass *a, const PointClass *b)
 static Object *Point_sub(const PointClass *a, const PointClass *b)
 {
     if (!a || !b)
-        raise("Error");
+        raise("Called Point sub with missing arguments");
 
     return new(Point, a->x - b->x, a->y - b->y);
 }
