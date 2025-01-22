@@ -23,6 +23,20 @@ Object *new(const Class *class, ...)
     return obj;
 }
 
+Object *va_new(const Class *class, va_list *ap)
+{
+    Object *obj;
+    va_list val;
+
+    if (class == NULL)
+        raise("Called new a NULL class");
+    obj = calloc(1, class->__size__);
+    memcpy(obj, class, class->__size__);
+    if (class->__ctor__ != NULL)
+        class->__ctor__(obj, ap);
+    return obj;
+}
+
 void delete(Object *ptr)
 {
     if (ptr == NULL)
