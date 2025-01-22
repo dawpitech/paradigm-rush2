@@ -17,7 +17,14 @@ CLFAGS	+=	-Wmissing-prototypes
 CFLAGS	+=	-pedantic
 CFLAGS	+=	-iquote include
 
-BDIR	=	.build
+T_CFLAGS	:=	$(CFLAGS)
+T_CFLAGS	+=	-g3
+T_CFLAGS	+=	-O0
+T_CFLAGS	+=	-lcriterion
+T_CFLAGS	+=	--coverage
+
+BDIR	=	.build/release
+T_BDIR	=	.build/test
 
 SRC	=	array.c
 SRC	+=	src/player.c
@@ -34,6 +41,9 @@ SRC_3 = mains/ex03.c
 SRC_4 = mains/ex04.c
 SRC_5 = mains/ex05.c
 
+T_SRC	:=	$(SRC)
+T_SRC	+=	tests/ex1.c
+
 OBJ = $(SRC:%.c=$(BDIR)/%.o)
 
 OBJ_1 = $(SRC_1:%.c=$(BDIR)/%.o)
@@ -42,7 +52,10 @@ OBJ_3 = $(SRC_3:%.c=$(BDIR)/%.o)
 OBJ_4 = $(SRC_4:%.c=$(BDIR)/%.o)
 OBJ_5 = $(SRC_5:%.c=$(BDIR)/%.o)
 
+T_OBJ	=	$(T_SRC:%.c=$(T_BDIR)/%.o)
+
 NAME = sources
+T_NAME	=	unit_tests
 
 .PHONY: all
 all: ex01 ex02 ex03 ex04 ex05
@@ -50,6 +63,16 @@ all: ex01 ex02 ex03 ex04 ex05
 $(BDIR)/%.o: %.c
 	@ mkdir -p $(dir $@)
 	$(CC) -o $@ -c $< $(CFLAGS)
+
+$(T_BDIR)/%.o: %.c
+	@ mkdir -p $(dir $@)
+	$(CC) -o $@ -c $< $(T_CFLAGS)
+
+$(T_NAME): $(T_OBJ)
+	$(CC) $(T_OBJ) $(T_CFLAGS) -o $(T_NAME)
+
+run_tests: $(T_NAME)
+	@-./$(T_NAME)
 
 ex01: $(OBJ) $(OBJ_1)
 	@ $(CC) $(OBJ) $(OBJ_1) $(CFLAGS) -o ex01
@@ -70,10 +93,12 @@ ex05: $(OBJ) $(OBJ_5)
 clean:
 	@ rm -f $(OBJ)
 	@ rm -rf $(BDIR)
+	@ rm -rf $(T_BDIR)
+	@ rm -d .build
 
 .PHONY: fclean
 fclean: clean
-	@ rm -f ex01 ex02 ex03 ex04 ex05
+	@ rm -f ex01 ex02 ex03 ex04 ex05 $(T_NAME)
 
 .NOTPARRALEL: re
 .PHONY: re
