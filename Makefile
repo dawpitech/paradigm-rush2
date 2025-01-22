@@ -21,7 +21,8 @@ BDIR	=	.build/
 
 SRC	=	src/array.c
 SRC	+=	src/player.c
-SRC	+=	src/point.c
+SRC	+=	point.c
+SRC	+=	vertex.c
 SRC	+=	new.c
 
 OBJ = $(SRC:%.c=$(BDIR)/%.o)
@@ -40,6 +41,9 @@ $(NAME): $(OBJ)
 
 ex01: $(OBJ)
 	@ $(CC) $(OBJ) mains/ex01.c $(CFLAGS) -o $(NAME)
+
+ex02: $(OBJ)
+	@ $(CC) $(OBJ) mains/ex02.c $(CFLAGS) -o $(NAME)
 
 .PHONY: clean
 clean:

@@ -10,4 +10,3 @@
 #include "object.h"
 
 extern const Class  *Vertex;
-
