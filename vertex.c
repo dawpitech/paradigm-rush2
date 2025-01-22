@@ -47,7 +47,7 @@ static char *Vertex_str(VertexClass *this)
 static Object *Vertex_add(VertexClass *this, VertexClass *vertex)
 {
     if (!this || !vertex)
-        raise("Invalid argument");
+        raise("Called Vertex add with missing arguments");
     return new(
         Vertex,
         this->x + vertex->x,
@@ -59,7 +59,7 @@ static Object *Vertex_add(VertexClass *this, VertexClass *vertex)
 static Object *Vertex_sub(VertexClass *this, VertexClass *vertex)
 {
     if (!this || !vertex)
-        raise("Invalid argument");
+        raise("Called Vertex sub with missing arguments");
     return new(
         Vertex,
         this->x - vertex->x,
