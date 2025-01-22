@@ -13,7 +13,7 @@ Object *new(const Class *class, ...)
     va_list val;
 
     if (class == NULL)
-        raise("Called new a NULL class");
+        raise("Called new on a NULL class");
     obj = calloc(1, class->__size__);
     memcpy(obj, class, class->__size__);
     va_start(val, class);
@@ -28,7 +28,7 @@ Object *va_new(const Class *class, va_list *ap)
     Object *obj;
 
     if (class == NULL)
-        raise("Called new a NULL class");
+        raise("Called va_new on a NULL class");
     obj = calloc(1, class->__size__);
     memcpy(obj, class, class->__size__);
     if (class->__ctor__ != NULL)
