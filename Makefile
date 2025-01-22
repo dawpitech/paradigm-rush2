@@ -42,7 +42,8 @@ SRC_4 = mains/ex04.c
 SRC_5 = mains/ex05.c
 
 T_SRC	:=	$(SRC)
-T_SRC	+=	tests/ex1.c
+T_SRC	+=	tests/ex01.c
+T_SRC	+=	tests/ex02.c
 
 OBJ = $(SRC:%.c=$(BDIR)/%.o)
 
