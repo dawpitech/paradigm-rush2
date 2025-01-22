@@ -7,6 +7,7 @@
 
 #include <stdio.h>
 #include "vertex.h"
+#include "new.h"
 
 typedef struct
 {
@@ -25,9 +26,11 @@ static void Vertex_ctor(VertexClass *this, va_list *args)
 
 static int my_intlen(int nbr)
 {
+    if (nbr < 0)
+        return 1 + my_intlen(-nbr);
     if (nbr < 10)
         return 1;
-    return 1 + nbr / 10; 
+    return 1 + my_intlen(nbr / 10); 
 }
 
 static char *Vertex_str(VertexClass *this)
@@ -41,6 +44,30 @@ static char *Vertex_str(VertexClass *this)
     return str;
 }
 
+static Object *Vertex_add(VertexClass *this, VertexClass *vertex)
+{
+    if (!this || !vertex)
+        raise("Invalid argument");
+    return new(
+        Vertex,
+        this->x + vertex->x,
+        this->y + vertex->y,
+        this->z + vertex->z
+    );
+}
+
+static Object *Vertex_sub(VertexClass *this, VertexClass *vertex)
+{
+    if (!this || !vertex)
+        raise("Invalid argument");
+    return new(
+        Vertex,
+        this->x - vertex->x,
+        this->y - vertex->y,
+        this->z - vertex->z
+    );
+}
+
 // Create additional functions here
 
 static const VertexClass _description = {
@@ -50,8 +77,8 @@ static const VertexClass _description = {
         .__ctor__ = (ctor_t)&Vertex_ctor,
         .__dtor__ = NULL,   /* Not needed atm */
         .__str__ = (to_string_t)&Vertex_str,
-        .__add__ = NULL,    /* Implement this method for exercice 03 */
-        .__sub__ = NULL,    /* Implement this method for exercice 03 */
+        .__add__ = (binary_operator_t)&Vertex_add,
+        .__sub__ = (binary_operator_t)&Vertex_sub,
         .__mul__ = NULL,
         .__div__ = NULL,
         .__eq__ = NULL,
