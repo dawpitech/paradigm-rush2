@@ -25,7 +25,7 @@ SRC	+=	point.c
 SRC	+=	vertex.c
 SRC	+=	char.c
 SRC	+=	new.c
-SCR +=  int.c
+SRC +=  int.c
 SRC	+=	float.c
 
 OBJ = $(SRC:%.c=$(BDIR)/%.o)

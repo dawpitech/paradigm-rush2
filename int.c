@@ -7,9 +7,8 @@
 
 #include <stdio.h>
 #include <stdlib.h>
-#include <type_traits>
+
 #include "int.h"
-#include "bonus/B-PDG-300_rush2/object.h"
 #include "new.h"
 
 typedef struct
@@ -18,7 +17,7 @@ typedef struct
     int     x;
 }   IntClass;
 
-static void Int_ctor(PointClass *this, va_list *args)
+static void Int_ctor(IntClass *this, va_list *args)
 {
     if (!args)
         raise("Called Point constructor with missing arguments");
