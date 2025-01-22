@@ -30,7 +30,7 @@ OBJ = $(SRC:%.c=$(BDIR)/%.o)
 NAME = sources
 
 .PHONY: all
-all: ex01 ex02
+all: ex01 ex02 ex03
 
 $(BDIR)/%.o: %.c
 	@ mkdir -p $(dir $@)
@@ -41,6 +41,15 @@ ex01: $(OBJ)
 
 ex02: $(OBJ)
 	@ $(CC) $(OBJ) mains/ex02.c $(CFLAGS) -o ex02
+
+ex03: $(OBJ)
+	@ $(CC) $(OBJ) mains/ex03.c $(CFLAGS) -o ex03
+
+ex04: $(OBJ)
+	@ $(CC) $(OBJ) mains/ex04.c $(CFLAGS) -o ex04
+
+ex05: $(OBJ)
+	@ $(CC) $(OBJ) mains/ex05.c $(CFLAGS) -o ex05
 
 .PHONY: clean
 clean:
