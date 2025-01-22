@@ -16,21 +16,37 @@ typedef struct
 
 static void Vertex_ctor(VertexClass *this, va_list *args)
 {
-    if (!args || !args[0] || !args[1] || !args[2]) {
-        this->x = 0;
-        this->y = 0;
-        this->z = 0;
-    } else {
-        this->x = (int)args[0];
-        this->y = (int)args[1];
-        this->z = (int)args[2];
+    if (!args)
+        raise("Invalid arguments.");
+    else {
+        this->x = va_arg(*args, int);
+        this->y = va_arg(*args, int);
+        this->z = va_arg(*args, int);
     }
     printf("Vertex()\n");
+}
+
+static int my_intlen(int nbr)
+{
+    if (nbr < 10)
+        return 1;
+    return 1 + nbr / 10; 
 }
 
 static void Vertex_dtor(VertexClass *this)
 {
     printf("~Vertex()\n");
+}
+
+static char *Vertex_str(VertexClass *this)
+{
+    int length = my_intlen(this->x) + my_intlen(this->y) +
+        my_intlen(this->z) + 6 + 1;
+    char *str = malloc(length);
+
+    if (snprintf(str, length, "(%d, %d, %d)", this->x, this->y, this->z) == -1)
+        return NULL;
+    return str;
 }
 
 // Create additional functions here
@@ -41,7 +57,7 @@ static const VertexClass _description = {
         .__name__ = "Vertex",
         .__ctor__ = (ctor_t)&Vertex_ctor,
         .__dtor__ = (dtor_t)&Vertex_dtor,
-        .__str__ = NULL,    /* Implement this method for exercice 02 */
+        .__str__ = (to_string_t)&Vertex_str,
         .__add__ = NULL,    /* Implement this method for exercice 03 */
         .__sub__ = NULL,    /* Implement this method for exercice 03 */
         .__mul__ = NULL,
