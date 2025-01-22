@@ -23,13 +23,6 @@ static void Point_ctor(PointClass *this, va_list *args)
         this->x = va_arg(*args, int);
         this->y = va_arg(*args, int);
     }
-    printf("x:%d  y:%d\n", this->x, this->y);
-    printf("Point()\n");
-}
-
-static void Point_dtor(PointClass *this)
-{
-    printf("~Point()\n");
 }
 
 // Create additional functions here
@@ -39,7 +32,7 @@ static const PointClass _description = {
         .__size__ = sizeof(PointClass),
         .__name__ = "Point",
         .__ctor__ = (ctor_t)&Point_ctor,
-        .__dtor__ = (dtor_t)&Point_dtor,
+        .__dtor__ = NULL,   /* Not needed atm */
         .__str__ = NULL,    /* Implement this method for exercice 02 */
         .__add__ = NULL,    /* Implement this method for exercice 03 */
         .__sub__ = NULL,    /* Implement this method for exercice 03 */
