@@ -211,3 +211,52 @@ Test(ex04, eq_float_null, .signal = SIGABRT)
 
     eq(f1, NULL);
 }
+
+Test(ex04, greater_than_char)
+{
+    Object *c1 = new(Char, 'a');
+    Object *c2 = new(Char, 'c');
+
+    cr_expect(gt(c2, c1));
+    cr_assert(!(gt(c1, c2)));
+}
+
+Test(ex04, less_than_char)
+{
+    Object *c1 = new(Char, 'a');
+    Object *c2 = new(Char, 'c');
+
+    cr_expect(!(lt(c2, c1)));
+    cr_assert(lt(c1, c2));
+}
+
+Test(ex04, equal_char)
+{
+    Object *c1 = new(Char, 'a');
+    Object *c2 = new(Char, 'c');
+    Object *c3 = new(Char, 'c');
+
+    cr_expect(!(eq(c1, c2)));
+    cr_assert(eq(c2, c3));
+}
+
+Test(ex04, gt_float_char, .signal = SIGABRT)
+{
+    Object *c1 = new(Char, 'a');
+
+    gt(c1, NULL);
+}
+
+Test(ex04, lt_float_char, .signal = SIGABRT)
+{
+    Object *c1 = new(Char, 'a');
+
+    lt(c1, NULL);
+}
+
+Test(ex04, eq_float_char, .signal = SIGABRT)
+{
+    Object *c1 = new(Char, 'a');
+
+    eq(c1, NULL);
+}
