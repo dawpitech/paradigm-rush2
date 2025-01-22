@@ -5,6 +5,7 @@
 ** Exercice 05
 */
 
+#include <stdio.h>
 #include <stdlib.h>
 #include <stdarg.h>
 #include "raise.h"
@@ -60,7 +61,16 @@ static Object   *ArrayIterator_getval(ArrayIteratorClass *this)
 
 static void     ArrayIterator_setval(ArrayIteratorClass *this, ...)
 {
-    /* Fill this function for exercice 05 */
+    va_list val;
+    int idx = 0;
+
+    if (!this)
+        raise("Error");
+    va_start(val, this);
+    idx = va_arg(val, int);
+    delete(this->_array->_tab[idx]);
+    this->_array->_tab[idx] = va_new(this->_array->_type, &val);
+    va_end(val);
 }
 
 static const ArrayIteratorClass   ArrayIteratorDescr = {
@@ -91,7 +101,17 @@ static const Class    *ArrayIterator = (const Class *)&ArrayIteratorDescr;
 
 static void     Array_ctor(ArrayClass *this, va_list *args)
 {
-    /* Fill this function for exercice 05 */
+    va_list val;
+    
+    if (!this || !args)
+        raise("Error");
+    this->_size = va_arg(*args, int) + 1;
+    this->_type = va_arg(*args, Class *);
+    this->_tab = calloc(this->_size, sizeof(this->_type));
+    for (unsigned int i = 0; i < this->_size; i++) {
+        va_copy(val, *args);
+        this->_tab[i] = va_new(this->_type, val);
+    }
 }
 
 static void     Array_dtor(ArrayClass *this)
@@ -118,12 +138,30 @@ static Iterator *Array_end(ArrayClass *this)
 
 static Object   *Array_getitem(ArrayClass *this, ...)
 {
-    /* Fill this function for exercice 05 */
+    va_list val;
+    Object *obj;
+
+    if (!this)
+        raise("Error");
+    va_start(val, this);
+    obj = calloc(1, sizeof(this->_type));
+    obj = va_new(this->_type, this->_tab[va_arg(val, int)]);
+    va_end(val);
+    return obj;
 }
 
 static void     Array_setitem(ArrayClass *this, ...)
 {
-    /* Fill this function for exercice 05 */
+    va_list val;
+    int idx = 0;
+
+    if (!this)
+        raise("Error");
+    va_start(val, this);
+    idx = va_arg(val, int);
+    delete(this->_tab[idx]);
+    this->_tab[idx] = va_new(this->_type, &val);
+    va_end(val);
 }
 
 static const ArrayClass   _descr = {
