@@ -110,7 +110,7 @@ static void     Array_ctor(ArrayClass *this, va_list *args)
     this->_tab = calloc(this->_size, sizeof(this->_type));
     for (unsigned int i = 0; i < this->_size; i++) {
         va_copy(val, *args);
-        this->_tab[i] = va_new(this->_type, val);
+        this->_tab[i] = va_new(this->_type, &val);
     }
 }
 
