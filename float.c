@@ -23,7 +23,7 @@ static void Float_ctor(FloatClass *this, va_list *args)
         raise("Invalid float object passed to constructor");
     if (args == NULL)
         raise("Called float constructor with missing arguments");
-    this->value = va_arg(*args, float);
+    this->value = (float) va_arg(*args, double);
 }
 
 static int my_intlen(const int nbr)
