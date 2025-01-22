@@ -17,13 +17,10 @@ typedef struct
 static void Vertex_ctor(VertexClass *this, va_list *args)
 {
     if (!args)
-        raise("Invalid arguments.");
-    else {
-        this->x = va_arg(*args, int);
-        this->y = va_arg(*args, int);
-        this->z = va_arg(*args, int);
-    }
-    printf("Vertex()\n");
+        raise("Called Vertex constructor with missing arguments");
+    this->x = va_arg(*args, int);
+    this->y = va_arg(*args, int);
+    this->z = va_arg(*args, int);
 }
 
 static int my_intlen(int nbr)
@@ -31,11 +28,6 @@ static int my_intlen(int nbr)
     if (nbr < 10)
         return 1;
     return 1 + nbr / 10; 
-}
-
-static void Vertex_dtor(VertexClass *this)
-{
-    printf("~Vertex()\n");
 }
 
 static char *Vertex_str(VertexClass *this)
@@ -56,7 +48,7 @@ static const VertexClass _description = {
         .__size__ = sizeof(VertexClass),
         .__name__ = "Vertex",
         .__ctor__ = (ctor_t)&Vertex_ctor,
-        .__dtor__ = (dtor_t)&Vertex_dtor,
+        .__dtor__ = NULL,   /* Not needed atm */
         .__str__ = (to_string_t)&Vertex_str,
         .__add__ = NULL,    /* Implement this method for exercice 03 */
         .__sub__ = NULL,    /* Implement this method for exercice 03 */

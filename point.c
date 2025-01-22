@@ -18,7 +18,7 @@ typedef struct
 static void Point_ctor(PointClass *this, va_list *args)
 {
     if (!args)
-        raise("Missing arguments");
+        raise("Called Point constructor with missing arguments");
     this->x = va_arg(*args, int);
     this->y = va_arg(*args, int);
 }
