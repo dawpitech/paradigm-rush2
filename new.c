@@ -10,7 +10,7 @@
 Object *new(const Class *class, ...)
 {
     Object *obj;
-    va_list val = NULL;
+    va_list val;
 
     if (class == NULL)
         raise("Called new a NULL class");
