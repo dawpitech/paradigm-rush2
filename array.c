@@ -5,6 +5,7 @@
 ** Exercice 05
 */
 
+#include <stddef.h>
 #include <stdio.h>
 #include <stdlib.h>
 #include <stdarg.h>
@@ -153,7 +154,7 @@ static Object   *Array_getitem(ArrayClass *this, ...)
 static void     Array_setitem(ArrayClass *this, ...)
 {
     va_list val;
-    int idx = 0;
+    size_t idx = 0;
 
     if (!this)
         raise("Set item on empty array");
