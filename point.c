@@ -17,11 +17,13 @@ typedef struct
 
 static void Point_ctor(PointClass *this, va_list *args)
 {
-    (void)args;
-
-    this->x = rand() % 42;
-    this->y = rand() % 42;
-
+    if (!args)
+        raise("Missing arguments");
+    else {
+        this->x = va_arg(*args, int);
+        this->y = va_arg(*args, int);
+    }
+    printf("x:%d  y:%d\n", this->x, this->y);
     printf("Point()\n");
 }
 
