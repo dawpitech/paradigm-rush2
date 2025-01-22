@@ -44,7 +44,6 @@ static char *Float_str(FloatClass *this)
         raise("Invalid float object passed to str");
     length = my_intlen((int)this->value) + 18;
     str = calloc(1, length);
-    printf("L:%d\n", length);
     if (snprintf(str, length, "<Float (%f)>", this->value) == -1)
         return NULL;
     return str;
