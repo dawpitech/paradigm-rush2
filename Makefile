@@ -46,6 +46,7 @@ T_SRC	+=	tests/ex01.c
 T_SRC	+=	tests/ex02.c
 T_SRC	+=	tests/ex03.c
 T_SRC	+=	tests/ex04.c
+T_SRC	+=	tests/ex05.c
 
 OBJ = $(SRC:%.c=$(BDIR)/%.o)
 

@@ -8,6 +8,7 @@
 #include <criterion/criterion.h>
 #include <criterion/redirect.h>
 #include <stdio.h>
+#include <signal.h>
 
 #include "char.h"
 #include "int.h"
@@ -103,4 +104,110 @@ Test(ex04, sub_int)
     Object *i3 = new(Int, 3);
 
     cr_assert(eq(subtraction(i1, i2), i3));
+}
+
+Test(ex04, add_int)
+{
+    Object *i1 = new(Int, 5);
+    Object *i2 = new(Int, 2);
+    Object *i3 = new(Int, 7);
+
+    cr_assert(eq(addition(i1, i2), i3));
+}
+
+Test(ex04, gt_int_null, .signal = SIGABRT)
+{
+    Object *i1 = new(Int, 42);
+
+    gt(i1, NULL);
+}
+
+Test(ex04, lt_int_null, .signal = SIGABRT)
+{
+    Object *i1 = new(Int, 42);
+
+    lt(i1, NULL);
+}
+
+Test(ex04, eq_int_null, .signal = SIGABRT)
+{
+    Object *i1 = new(Int, 42);
+
+    eq(i1, NULL);
+}
+
+Test(ex04, greater_than_float)
+{
+    Object *f1 = new(Float, 2.0);
+    Object *f2 = new(Float, 5.0);
+
+    cr_expect(gt(f2, f1));
+    cr_assert(!(gt(f1, f2)));
+}
+
+Test(ex04, less_than_float)
+{
+    Object *f1 = new(Float, 2.0);
+    Object *f2 = new(Float, 5.0);
+
+    cr_expect(!(lt(f2, f1)));
+    cr_assert(gt(f2, f1));
+}
+
+Test(ex04, equal_float)
+{
+    Object *f1 = new(Float, 2.0);
+    Object *f2 = new(Float, 5.0);
+    Object *f3 = new(Float, 5.0);
+
+    cr_expect(!(eq(f1, f2)));
+    cr_assert(eq(f2, f3));
+}
+
+Test(ex04, mul_float)
+{
+    Object *f1 = new(Float, 2.0);
+    Object *f2 = new(Float, 5.0);
+    Object *f3 = new(Float, 10.0);
+
+    cr_assert(eq(multiplication(f1, f2), f3));
+}
+
+Test(ex04, sub_float)
+{
+    Object *f1 = new(Float, 5.0);
+    Object *f2 = new(Float, 2.0);
+    Object *f3 = new(Float, 3.0);
+
+    cr_assert(eq(subtraction(f1, f2), f3));
+}
+
+Test(ex04, add_float)
+{
+    Object *f1 = new(Float, 5.0);
+    Object *f2 = new(Float, 2.0);
+    Object *f3 = new(Float, 7.0);
+
+    cr_assert(eq(addition(f1, f2), f3));
+}
+
+Test(ex04, gt_float_null, .signal = SIGABRT)
+{
+    Object *f1 = new(Float, 42.0);
+
+    gt(f1, NULL);
+}
+
+Test(ex04, lt_float_null, .signal = SIGABRT)
+{
+    Object *f1 = new(Float, 42.0);
+
+    lt(f1, NULL);
+}
+
+Test(ex04, eq_float_null, .signal = SIGABRT)
+{
+    Object *f1 = new(Float, 42.0);
+
+    eq(f1, NULL);
 }
