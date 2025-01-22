@@ -54,6 +54,7 @@ ex05: $(OBJ)
 .PHONY: clean
 clean:
 	@ rm -f $(OBJ)
+	@ rm -rf $(BDIR)
 
 .PHONY: fclean
 fclean: clean
