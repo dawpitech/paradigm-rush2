@@ -41,10 +41,10 @@ static void Vertex_dtor(VertexClass *this)
 static char *Vertex_str(VertexClass *this)
 {
     int length = my_intlen(this->x) + my_intlen(this->y) +
-        my_intlen(this->z) + 6 + 1;
+        my_intlen(this->z) + 15 + 1;
     char *str = malloc(length);
 
-    if (snprintf(str, length, "(%d, %d, %d)", this->x, this->y, this->z) == -1)
+    if (snprintf(str, length, "<Vertex (%d, %d, %d)>", this->x, this->y, this->z) == -1)
         return NULL;
     return str;
 }
