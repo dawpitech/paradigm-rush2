@@ -105,7 +105,7 @@ static void     Array_ctor(ArrayClass *this, va_list *args)
     
     if (!this || !args)
         raise("Error");
-    this->_size = va_arg(*args, int) + 1;
+    this->_size = va_arg(*args, int);
     this->_type = va_arg(*args, Class *);
     this->_tab = calloc(this->_size, sizeof(this->_type));
     for (unsigned int i = 0; i < this->_size; i++) {
@@ -142,7 +142,7 @@ static Object   *Array_getitem(ArrayClass *this, ...)
     Object *obj;
 
     if (!this)
-        raise("Error");
+        raise("Get item on empty array");
     va_start(val, this);
     obj = calloc(1, sizeof(this->_type));
     obj = va_new(this->_type, this->_tab[va_arg(val, int)]);
@@ -156,9 +156,11 @@ static void     Array_setitem(ArrayClass *this, ...)
     int idx = 0;
 
     if (!this)
-        raise("Error");
+        raise("Set item on empty array");
     va_start(val, this);
     idx = va_arg(val, int);
+    if (idx > this->_size)
+        raise("Index out of range");
     delete(this->_tab[idx]);
     this->_tab[idx] = va_new(this->_type, &val);
     va_end(val);
