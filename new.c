@@ -26,7 +26,6 @@ Object *new(const Class *class, ...)
 Object *va_new(const Class *class, va_list *ap)
 {
     Object *obj;
-    va_list val;
 
     if (class == NULL)
         raise("Called new a NULL class");
