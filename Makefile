@@ -49,7 +49,7 @@ all: ex01 ex02 ex03 ex04 ex05
 
 $(BDIR)/%.o: %.c
 	@ mkdir -p $(dir $@)
-	$(CC) -o $@ -c $< $(CFLAGS) -Wno-unused-parameter
+	$(CC) -o $@ -c $< $(CFLAGS)
 
 ex01: $(OBJ) $(OBJ_1)
 	@ $(CC) $(OBJ) $(OBJ_1) $(CFLAGS) -o ex01
