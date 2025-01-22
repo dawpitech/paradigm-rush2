@@ -27,10 +27,10 @@ SRC	+=	new.c
 
 OBJ = $(SRC:%.c=$(BDIR)/%.o)
 
-NAME = rush2
+NAME = sources
 
 .PHONY: all
-all: ex01
+all: ex01 ex02
 
 $(BDIR)/%.o: %.c
 	@ mkdir -p $(dir $@)
@@ -40,10 +40,10 @@ $(NAME): $(OBJ)
 	@ ar rc ${NAME} $(OBJ)
 
 ex01: $(OBJ)
-	@ $(CC) $(OBJ) mains/ex01.c $(CFLAGS) -o $(NAME)
+	@ $(CC) $(OBJ) mains/ex01.c $(CFLAGS) -o ex01
 
 ex02: $(OBJ)
-	@ $(CC) $(OBJ) mains/ex02.c $(CFLAGS) -o $(NAME)
+	@ $(CC) $(OBJ) mains/ex02.c $(CFLAGS) -o ex02
 
 .PHONY: clean
 clean:
@@ -51,7 +51,7 @@ clean:
 
 .PHONY: fclean
 fclean: clean
-	@ rm -f $(NAME)
+	@ rm -f ex01 ex02 ex03 ex04 ex05
 
 .NOTPARRALEL: re
 .PHONY: re
