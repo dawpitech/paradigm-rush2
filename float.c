@@ -84,21 +84,21 @@ static bool Float_eq(const FloatClass *a, const FloatClass *b)
 {
     if (a == NULL || b == NULL)
         raise("Invalid float objects passed to eq");
-    return a == b ? true : false;
+    return a->value == b->value ? true : false;
 }
 
 static bool Float_gt(const FloatClass *a, const FloatClass *b)
 {
     if (a == NULL || b == NULL)
         raise("Invalid float objects passed to qt");
-    return a > b ? true : false;
+    return a->value > b->value ? true : false;
 }
 
 static bool Float_lt(const FloatClass *a, const FloatClass *b)
 {
     if (a == NULL || b == NULL)
         raise("Invalid float objects passed to lt");
-    return a < b ? true : false;
+    return a->value < b->value ? true : false;
 }
 
 static const FloatClass _description = {
